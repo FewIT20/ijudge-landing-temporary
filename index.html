@@ -23,7 +23,8 @@
     </style>
 </head>
 
-<body class="flex flex-col justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900 font-noto-sans-thai relative">
+<body
+    class="flex flex-col justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900 font-noto-sans-thai relative">
     <div class="text-center">
         <h1 class="text-6xl font-extrabold text-gray-800 dark:text-white">อุ้ย!, คุณเจอ capoo</h1>
         <div class="mt-4">
@@ -33,65 +34,54 @@
         <p class="text-2xl mt-6 text-gray-600 dark:text-gray-400">ขนาดนี้ถึงเวลานอนแล้วครับ,
             ขอให้นักศึกษาพักผ่อนให้เต็มทีครับ</p>
         <div class="mt-6 relative">
-            <a href="javascript:void(0)" id="magic-button" class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 px-4 py-2 text-base text-white bg-blue-500 rounded-md transition-transform duration-500 ease-in-out hover:shadow-[0_0_20px_10px_rgba(59,130,246,0.8)] dark:hover:shadow-[0_0_20px_10px_rgba(255,255,255,0.8)] whitespace-nowrap"
-   onmouseover="moveButtonRandomly(event)" onclick="showModal()">
-   คลิกเพื่อรับพลังวิเศษ 🚀
-</a>
+            <a href="javascript:void(0)" id="magic-button"
+                class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 px-4 py-2 text-base text-white bg-blue-500 rounded-md transition-transform duration-500 ease-in-out hover:shadow-[0_0_20px_10px_rgba(59,130,246,0.8)] dark:hover:shadow-[0_0_20px_10px_rgba(255,255,255,0.8)] whitespace-nowrap"
+                onmouseover="moveButtonRandomly(event)" onclick="showModal()">
+                คลิกเพื่อรับพลังวิเศษ 🚀
+            </a>
 
         </div>
     </div>
     <div id="show-model" class="hidden fixed inset-0 bg-black bg-opacity-50 justify-center items-center z-50">
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl text-center max-w-md mx-auto">
             <img src="/statics/prayer.jpg" class="mx-auto rounded-md shadow-lg max-h-96 w-full object-contain">
-            <button class="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600" onclick="closeModal()">Close</button>
+            <button class="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                onclick="closeModal()">Close</button>
         </div>
     </div>
-    
-    <!-- Footer -->
-    <footer class="fixed bottom-0 left-0 w-full bg-gray-100 dark:bg-gray-900 text-center text-gray-600 dark:text-gray-300 text-sm p-4">
-        Made with ❤️ by 
-        <a href="https://github.com/FewPz" class="hover:text-shadow-[0_0_10px_rgba(59,130,246,1)] dark:hover:text-shadow-[0_0_10px_rgba(255,255,255,1)]">
+    <footer
+        class="fixed bottom-0 left-0 w-full bg-gray-100 dark:bg-gray-900 text-center text-gray-600 dark:text-gray-300 text-sm p-4">
+        Made with ❤️ by
+        <a href="https://github.com/FewPz"
+            class="hover:text-shadow-[0_0_10px_rgba(59,130,246,1)] dark:hover:text-shadow-[0_0_10px_rgba(255,255,255,1)]">
             @FewPz
-        </a> 
-        and 
-        <a href="https://github.com/phatsanphonna" class="hover:text-shadow-[0_0_10px_rgba(59,130,246,1)] dark:hover:text-shadow-[0_0_10px_rgba(255,255,255,1)]">
+        </a>
+        and
+        <a href="https://github.com/phatsanphonna"
+            class="hover:text-shadow-[0_0_10px_rgba(59,130,246,1)] dark:hover:text-shadow-[0_0_10px_rgba(255,255,255,1)]">
             @phatsanphonna
         </a>
-    </footer>    
+    </footer>
 </body>
 <script>
-let hoverCount = 0;
+    let hoverCount = 0;
 
-function moveButtonRandomly(event) {
-    if (hoverCount < 5) {
-        const button = event.target;
+    function moveButtonRandomly(event) {
+        if (hoverCount < 5) {
+            const button = event.target;
+            const currentX = button.offsetLeft;
+            const viewportWidth = window.innerWidth;
+            const directionX = currentX < viewportWidth / 2 ? 1 : -1;
+            const randomX = currentX + directionX * Math.floor(Math.random() * 501);
+            const clampedX = Math.max(0, Math.min(randomX, viewportWidth - button.offsetWidth));
 
-        // Get the current position of the button
-        const currentX = button.offsetLeft;
+            button.style.transition = 'left 0.5s ease-in-out, transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out';
+            button.style.position = 'absolute';
+            button.style.left = `${clampedX}px`;
 
-        const viewportWidth = window.innerWidth;
-
-        // Determine direction: if button is on the left, move to the right, and vice versa
-        const directionX = currentX < viewportWidth / 2 ? 1 : -1;
-
-        // Calculate new position with a range of 500 pixels, taking direction into account
-        const randomX = currentX + directionX * Math.floor(Math.random() * 501);
-
-        // Ensure the new position stays within the viewport
-        const clampedX = Math.max(0, Math.min(randomX, viewportWidth - button.offsetWidth));
-
-        // Apply the new position with smooth transition
-        button.style.transition = 'left 0.5s ease-in-out, transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out';
-        button.style.position = 'absolute';
-        button.style.left = `${clampedX}px`;
-
-        hoverCount += 1;
+            hoverCount += 1;
+        }
     }
-}
-
-
-
-
 
     function showModal() {
         const modal = document.getElementById('show-model');
